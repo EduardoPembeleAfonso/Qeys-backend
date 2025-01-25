@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("postgresql://qeysdb_user:LVU0sUIKvvpJi4VOuxXdeR0OUX9sr6FL@dpg-cuakvkrqf0us73ca1qp0-a.oregon-postgres.render.com/qeysdb")
+}
+
+model User {
+  id                         String       @id @default(uuid())
+  name                       String 
+  email                      String       @unique
+  password                   String
+  image                      String?
+  type                       UserTypes
+  properties                 Properties[]
+  schedulingPhotos           SchedulingPhotos[]
+  scheduling                 Scheduling[]
+  verificationByEmailToken   String?
+  verificationByEmailExpires DateTime?
+  createdAt                  DateTime     @default(now())
+  updatedAt                  DateTime     @updatedAt
+
+  @@map("users")
+}
+
+model Properties {
+  id                      String @id @default(uuid())
+  address                 String
+  title                   String
+  description             String
+  likes                   Int       @default(0)
+  isForSale               Boolean   @default(false)
+  areaProperty            Float
+  price                   String
+  photo                   String
+  coordinates             String
+  numberBedrooms          Int @default(0)
+  numberBathrooms         Int @default(0)
+  schedulingPhotos        SchedulingPhotos[]
+  scheduling              Scheduling[]
+  userId                  String
+  user                    User @relation(fields: [userId], references: [id])
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@map("properties")
+}
+
+model Scheduling {
+  id           String       @id @default(uuid())
+  date         String
+  time         String
+  description  String
+  contact      String
+  isActive     Boolean      @default(true)
+  propertiesId String
+  properties   Properties   @relation(fields: [propertiesId], references: [id])
+  userId       String
+  user         User         @relation(fields: [userId], references: [id])
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@map("scheduling")
+}
+
+model SchedulingPhotos {
+  id           String @id @default(uuid())
+  date         DateTime
+  description  String
+  propertiesId String
+  properties   Properties   @relation(fields: [propertiesId], references: [id])
+  userId       String
+  user         User         @relation(fields: [userId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("schedulingPhotos")
+}
+
+enum UserTypes {
+  TENANT
+  OWNER
+}

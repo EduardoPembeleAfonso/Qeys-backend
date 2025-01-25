@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "node16",
+      "esModuleInterop": true,
+      "rootDirs": [
+        "src",
+        "jest.config.ts",
+        "tsconfig.json"
+      ],
+      "strictPropertyInitialization": false,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "forceConsistentCasingInFileNames": true,
+      "resolveJsonModule": false,
+      "strict": false,
+      "skipLibCheck": true,
+      "baseUrl": ".",
+      "paths": {
+        "@/*": [
+          "./src/*",
+          "./__tests__/*"
+        ]
+      }
+    }
+  }
