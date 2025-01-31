@@ -15,7 +15,7 @@ export default class UpdatePropertiesUseCase implements UseCase {
   constructor(
     @inject("IPropertiesRepositoryPrismaImpl")
     private repository: IPropertiesRepository
-  ) {}
+  ) { }
 
   async execute(request: PropertiesEntity): Promise<HttpResponse<any>> {
     try {
@@ -31,6 +31,7 @@ export default class UpdatePropertiesUseCase implements UseCase {
 
       return successResponse(properties);
     } catch (error) {
+      console.log({ error: error })
       return errorResponse(error);
     }
   }

@@ -13,6 +13,7 @@ export class CreatePropertiesController {
       areaProperty,
       price,
       photo,
+      isForSale,
       coordinates,
       numberBedrooms,
       numberBathrooms
@@ -20,12 +21,12 @@ export class CreatePropertiesController {
     const { userId } = req.params;
 
     const file = req.file as CustomFile
-    // let files: CustomFile[];
-    // let imageUrls: any[];
-    // if (req.files) {
-    //   files = req.files as CustomFile[];
-    //   imageUrls = files.map(file => file.fileUrl);
-    // }
+    let forSale = false;
+    if (isForSale.trim() === "true") {
+      forSale = true
+    } else {
+      forSale = false
+    }
 
     const useCase = container.resolve(CreatePropertiesUseCase);
 
@@ -33,24 +34,13 @@ export class CreatePropertiesController {
     const bathrooms = parseInt(numberBathrooms)
     const bedrooms = parseInt(numberBedrooms)
 
-    console.log({
-      address,
-      title,
-      description,
-      areaProperty: area,
-      numberBathrooms: bathrooms,
-      numberBedrooms: bedrooms,
-      photo: file.fileUrl,
-      coordinates,
-      price,
-      userId,
-    })
 
     const index = await useCase.execute({
       address,
       title,
       description,
       areaProperty: area,
+      isForSale: forSale,
       numberBathrooms: bathrooms,
       numberBedrooms: bedrooms,
       photo: file.fileUrl,

@@ -12,8 +12,8 @@ export class UpdatePropertiesController {
       description,
       areaProperty,
       price,
+      isForSale,
       photo,
-      likes,
       numberBedrooms,
       numberBathrooms
     } = req.body;
@@ -26,11 +26,16 @@ export class UpdatePropertiesController {
 
     const area = parseInt(areaProperty)
     const bathrooms = parseInt(numberBathrooms)
-    const like = parseInt(likes)
     const bedrooms = parseInt(numberBedrooms)
 
-    const useCase = container.resolve(UpdatePropertiesUseCase);
+    let forSale = false;
+    if (isForSale.trim() === "true") {
+      forSale = true
+    } else {
+      forSale = false
+    }
 
+    const useCase = container.resolve(UpdatePropertiesUseCase);
 
     const index = await useCase.execute({
       id,
@@ -38,8 +43,8 @@ export class UpdatePropertiesController {
       title,
       description,
       areaProperty: area,
+      isForSale: forSale,
       numberBathrooms: bathrooms,
-      likes: like,
       numberBedrooms: bedrooms,
       photo: file ? file.fileUrl : photo,
       price,
