@@ -17,7 +17,7 @@ export class IBankAccountsRepositoriesPrismaImpl implements IBankAccountsReposit
   }
 
   index(): Promise<BankAccounts[]> {
-    return this._prisma.bankAccounts.findMany({ include: { user: true } });
+    return this._prisma.bankAccounts.findMany({});
   }
 
   async findBySpecificId(id: string): Promise<BankAccounts> {

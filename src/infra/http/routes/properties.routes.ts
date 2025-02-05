@@ -1,4 +1,6 @@
 import { Router } from "express";
+import multer from "multer";
+import { uploadFile } from "@/helpers/functions/fileHandler.helper";
 import {
   CreatePropertiesController,
   DeletePropertiesController,
@@ -18,9 +20,6 @@ const deleteControler = new DeletePropertiesController();
 const getById = new GetPropertiesByIdController();
 const getAll = new GetPropertiesController();
 const updateLikes = new UpdateLikesPropertiesController();
-
-import multer from "multer";
-import { uploadFile } from "@/helpers/functions/fileHandler.helper";
 
 const upload = multer({
   storage: multer.memoryStorage(),

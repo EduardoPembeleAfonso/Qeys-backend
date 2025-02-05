@@ -1,4 +1,6 @@
 import { Router } from "express";
+import multer from "multer";
+import { uploadFile } from "@/helpers/functions/fileHandler.helper";
 import {
   CreateUserController,
   ForgotPasswordController,
@@ -6,6 +8,7 @@ import {
   GetUsersController,
   LoginUserController,
   ResetPasswordController,
+  UpdateUserController,
   VerifyTokenController,
 } from "../controllers";
 import { ensureAuthenticated } from "@/shared";
@@ -19,7 +22,12 @@ const getByIdController = new GetUserByIdController();
 const getAllUsersController = new GetUsersController();
 const forgotPasswordController = new ForgotPasswordController();
 const verifyTokenController = new VerifyTokenController();
+const updateUserController = new UpdateUserController();
 const resetPasswordController = new ResetPasswordController();
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+});
 
 router.post("/auth/create", createController.handle.bind(createController));
 
@@ -36,5 +44,6 @@ router.get(
   "/users/:id",
   getAllUsersController.handle.bind(getAllUsersController)
 );
+router.put("/user/:id", upload.single("image"), uploadFile, updateUserController.handle.bind(updateUserController));
 
 export default router;
