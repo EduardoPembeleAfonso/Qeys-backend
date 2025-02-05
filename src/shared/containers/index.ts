@@ -1,8 +1,10 @@
+import IBankAccountsRepository from "@/app/repositories/bankAccounts.repository";
 import IPropertiesRepository from "@/app/repositories/properties.repository";
 import ISchedulingRepository from "@/app/repositories/scheduling.repository";
 import ISchedulingPhotosRepository from "@/app/repositories/schedulingPhotos.repository";
 import IUserRepository from "@/app/repositories/users.repository";
 import {
+  IBankAccountsRepositoriesPrismaImpl,
   IPropertiesRepositoryPrismaImpl,
   ISchedulingPhotosRepositoryPrismaImpl,
   ISchedulingRepositoryPrismaImpl,
@@ -28,4 +30,9 @@ container.registerSingleton<ISchedulingPhotosRepository>(
 container.registerSingleton<ISchedulingRepository>(
   "ISchedulingRepositoryPrismaImpl",
   ISchedulingRepositoryPrismaImpl
+);
+
+container.registerSingleton<IBankAccountsRepository>(
+  "IBankAccountsRepositoriesPrismaImpl",
+  IBankAccountsRepositoriesPrismaImpl
 );

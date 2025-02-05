@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient, Properties } from "@prisma/client";
+import { PrismaClient, Properties } from "@prisma/client";
 import IPropertiesRepository from "@/app/repositories/properties.repository";
 import PropertiesEntity from "@/app/entities/properties.entity";
 

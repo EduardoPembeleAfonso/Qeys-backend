@@ -8,5 +8,6 @@ export enum ErrosMessages {
     tokenExpired = 'Token Expirou',
     usersNotFounded = 'Nenhum Usuário Encontrado.',
     propertiesNotFounded = 'Nenhuma Casa Encontrada.',
+    bankNotFounded = 'Nenhuma Conta Bancaria Encontrada.',
     schedulingNotFounded = 'Nenhuma Agenda Encontrada.',
   }

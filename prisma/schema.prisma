@@ -17,6 +17,7 @@ model User {
   properties                 Properties[]
   schedulingPhotos           SchedulingPhotos[]
   scheduling                 Scheduling[]
+  bankAccounts               BankAccounts[]
   verificationByEmailToken   String?
   verificationByEmailExpires DateTime?
   createdAt                  DateTime     @default(now())
@@ -32,6 +33,7 @@ model Properties {
   description             String
   likes                   Int       @default(0)
   isForSale               Boolean   @default(false)
+  managed                 Boolean   @default(true)
   areaProperty            Float
   price                   String
   photo                   String
@@ -63,6 +65,20 @@ model Scheduling {
   updatedAt    DateTime     @updatedAt
 
   @@map("scheduling")
+}
+
+model BankAccounts {
+  id            String       @id @default(uuid())
+  name          String
+  iban          String
+  nameBank      String
+  numberAccount String
+  userId        String
+  user          User         @relation(fields: [userId], references: [id])
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@map("bankAccounts")
 }
 
 model SchedulingPhotos {
